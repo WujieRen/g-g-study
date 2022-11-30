@@ -3,7 +3,7 @@ package cn.rwj.study.akka.basic;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
-import akka.actor.UntypedAbstractActor;
+import akka.actor.UntypedActor;
 import akka.event.Logging;
 import akka.event.LoggingAdapter;
 
@@ -19,7 +19,7 @@ import akka.event.LoggingAdapter;
  * @author rwj
  * @date 2022/11/27
  */
-public class ActorDemo extends UntypedAbstractActor {
+public class ActorDemo extends UntypedActor {
 
     private LoggingAdapter log = Logging.getLogger(this.getContext().system(), this);
 

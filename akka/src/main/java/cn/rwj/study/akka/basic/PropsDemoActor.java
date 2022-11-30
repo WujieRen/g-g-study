@@ -7,9 +7,9 @@ import akka.japi.Creator;
  * @author rwj
  * @date 2022/11/27
  */
-public class PropsDemoActor extends UntypedAbstractActor {
+public class PropsDemoActor extends UntypedActor {
     @Override
-    public void onReceive(Object message) throws Throwable, Throwable {
+    public void onReceive(Object message) {
 
     }
 

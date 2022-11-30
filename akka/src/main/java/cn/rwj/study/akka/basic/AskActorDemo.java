@@ -3,7 +3,7 @@ package cn.rwj.study.akka.basic;
 import akka.actor.ActorRef;
 import akka.actor.ActorSystem;
 import akka.actor.Props;
-import akka.actor.UntypedAbstractActor;
+import akka.actor.UntypedActor;
 import akka.dispatch.OnSuccess;
 import akka.pattern.Patterns;
 import akka.util.Timeout;
@@ -19,7 +19,7 @@ import scala.concurrent.duration.Duration;
  * @author rwj
  * @date 2022/11/27
  */
-public class AskActorDemo extends UntypedAbstractActor {
+public class AskActorDemo extends UntypedActor {
     @Override
     public void onReceive(Object message) {
         System.out.println("发送者是：" + getSender());
