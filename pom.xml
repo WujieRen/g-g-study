@@ -12,6 +12,7 @@
 
     <modules>
         <module>akka</module>
+        <module>design-pattern</module>
     </modules>
 
     <properties>

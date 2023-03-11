@@ -1,0 +1,29 @@
+package cn.rwj.study.dpattern._0动物练习._0封装;
+
+public class Dog {
+
+	private String name = "";
+	public Dog(String name){
+		this.name = name;
+	}
+
+	public Dog(){
+		this.name="无名";
+	}
+
+	private int shoutNum = 3;
+	public void setShoutNum(int value){
+		this.shoutNum=value;
+	}
+	public int getShoutNum(){
+		return this.shoutNum;
+	}
+
+	public String shout(){
+		String result="";
+		for(int i=0;i<this.shoutNum;i++){
+			result+= "汪 ";
+		}
+		return " 我的名字叫"+ name + " " + result;
+	}
+}
