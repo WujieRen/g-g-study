@@ -1,6 +1,5 @@
-package cn.rwj.study.dpattern._014观察者模式._01前台老板._05;
+package cn.rwj.study.dpattern._14观察者模式._01前台老板._05;
 
-import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 

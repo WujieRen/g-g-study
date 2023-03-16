@@ -1,4 +1,4 @@
-package cn.rwj.study.dpattern._014观察者模式._01前台老板._01;
+package cn.rwj.study.dpattern._14观察者模式._01前台老板._01;
 
 import java.util.ArrayList;
 

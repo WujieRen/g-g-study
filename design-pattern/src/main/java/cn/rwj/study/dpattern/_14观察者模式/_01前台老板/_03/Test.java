@@ -1,4 +1,4 @@
-package cn.rwj.study.dpattern._014观察者模式._01前台老板._02;
+package cn.rwj.study.dpattern._14观察者模式._01前台老板._03;
 
 import java.util.ArrayList;
 
@@ -10,24 +10,26 @@ public class Test {
         System.out.println("《大话设计模式》代码样例");
         System.out.println();
 
-        //前台小姐童子喆
-        Secretary secretary1 = new Secretary("童子喆");
+        //老板胡汉三
+        Subject boss1 = new Boss("胡汉三");
 
         //看股票的同事
-        Observer employee1 = new StockObserver("魏关姹", secretary1);
-        Observer employee2 = new StockObserver("易管查", secretary1);
+        Observer employee1 = new StockObserver("魏关姹", boss1);
+        Observer employee2 = new StockObserver("易管查", boss1);
         //看NBA的同事
-        Observer employee3 = new NBAObserver("兰秋幂", secretary1);
+        Observer employee3 = new NBAObserver("兰秋幂", boss1);
 
-        //前台登记下三个同事
-        secretary1.attach(employee1);
-        secretary1.attach(employee2);
-        secretary1.attach(employee3);
+        //老板登记下三个同事
+        boss1.attach(employee1);
+        boss1.attach(employee2);
+        boss1.attach(employee3);
 
-        //当发现老板回来了时
-        secretary1.setAction("老板回来了");
-        //通知三个同事
-        secretary1.notifyEmployee();
+        boss1.detach(employee1); //魏关姹其实没有被通知到，所有减去
+
+        //老板回来
+        boss1.setAction("我胡汉三回来了");
+        //通知两个同事
+        boss1.notifyEmployee();
 
         System.out.println();
         System.out.println("**********************************************");
@@ -35,11 +37,11 @@ public class Test {
     }
 }
 
-//前台类
-class Secretary {
+//通知者接口
+abstract class Subject {
     protected String name;
 
-    public Secretary(String name) {
+    public Subject(String name) {
         this.name = name;
     }
 
@@ -47,7 +49,7 @@ class Secretary {
     private ArrayList<Observer> list = new ArrayList<Observer>();//针对抽象的Observer编程
     private String action;
 
-    //增加同事（有几个同事需要前台通知，就增加几个对象）
+    //增加同事（有几个同事需要秘书通知，就增加几个对象）
     public void attach(Observer observer) {
         list.add(observer);
     }
@@ -59,29 +61,47 @@ class Secretary {
 
     //通知
     public void notifyEmployee() {
-        //待老板来了，就给所有登记过的同事发通知
+        //给所有登记过的同事发通知
         for (Observer item : list) {
             item.update();
         }
     }
 
-    //得到前台状态
+    //得到状态
     public String getAction() {
         return this.action;
     }
 
-    //设置前台状态（就是设置具体通知的话）
+    //设置状态（就是设置具体通知的话）
     public void setAction(String value) {
         this.action = value;
     }
 }
 
+//老板
+class Boss extends Subject {
+    public Boss(String name) {
+        super(name);
+    }
+
+    //拥有自己的方法和属性
+}
+
+//前台类
+class Secretary extends Subject {
+    public Secretary(String name) {
+        super(name);
+    }
+
+    //拥有自己的方法和属性
+}
+
 //抽象观察者
 abstract class Observer {
     protected String name;
-    protected Secretary sub;
+    protected Subject sub;
 
-    public Observer(String name, Secretary sub) {
+    public Observer(String name, Subject sub) {
         this.name = name;
         this.sub = sub;
     }
@@ -91,7 +111,7 @@ abstract class Observer {
 
 //看股票同事类
 class StockObserver extends Observer {
-    public StockObserver(String name, Secretary sub) {
+    public StockObserver(String name, Subject sub) {
         super(name, sub);
     }
 
@@ -100,10 +120,9 @@ class StockObserver extends Observer {
     }
 }
 
-
 //看NBA同事类
 class NBAObserver extends Observer {
-    public NBAObserver(String name, Secretary sub) {
+    public NBAObserver(String name, Subject sub) {
         super(name, sub);
     }
 
