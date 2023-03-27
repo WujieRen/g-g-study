@@ -1,4 +1,4 @@
-package cn.rwj.study.dpattern._01简单工厂模式._02计算器;
+package cn.rwj.study.dpattern._01简单工厂模式._01计算器._02;
 
 import java.util.Scanner;
 

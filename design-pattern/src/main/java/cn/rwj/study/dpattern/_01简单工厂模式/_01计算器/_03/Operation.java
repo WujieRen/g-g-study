@@ -1,4 +1,4 @@
-package cn.rwj.study.dpattern._01简单工厂模式._03计算器;
+package cn.rwj.study.dpattern._01简单工厂模式._01计算器._03;
 
 public class Operation {
     public static double getResult(double numberA, double numberB, String operate) {

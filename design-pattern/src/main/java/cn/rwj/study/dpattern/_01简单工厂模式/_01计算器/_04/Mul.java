@@ -1,4 +1,4 @@
-package cn.rwj.study.dpattern._01简单工厂模式._04计算器;
+package cn.rwj.study.dpattern._01简单工厂模式._01计算器._04;
 
 public class Mul extends Operation {
     public double getResult(double numberA, double numberB) {
