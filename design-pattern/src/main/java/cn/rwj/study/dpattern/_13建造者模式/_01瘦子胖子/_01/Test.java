@@ -1,4 +1,4 @@
-package cn.rwj.study.dpattern._13建造者模式._01;
+package cn.rwj.study.dpattern._13建造者模式._01瘦子胖子._01;
 
 import java.awt.Graphics;
 import javax.swing.JFrame;
