@@ -1,4 +1,4 @@
-package cn.rwj.study.dpattern._17适配器模式_01篮球翻译._02;
+package cn.rwj.study.dpattern._17适配器模式._01篮球翻译._01;
 
 public class Test {
 
@@ -14,7 +14,7 @@ public class Test {
         Player guards = new Guards("麦克格雷迪");
         guards.attack();
 
-        Player center = new Translator("姚明");
+        Player center = new Center("姚明");
 
         center.attack();
         center.defense();
@@ -80,46 +80,6 @@ class Guards extends Player {
 
     public void defense() {
         System.out.println("后卫 " + this.name + " 防守");
-    }
-}
-
-//外籍中锋
-class ForeignCenter {
-    private String name;
-
-    public String getName() {
-        return this.name;
-    }
-
-    public void setName(String value) {
-        this.name = value;
-    }
-
-    public void 进攻() {
-        System.out.println("外籍中锋 " + this.name + " 进攻");
-    }
-
-    public void 防守() {
-        System.out.println("外籍中锋 " + this.name + " 防守");
-    }
-}
-
-//翻译者类
-class Translator extends Player {
-
-    private ForeignCenter foreignCenter = new ForeignCenter();
-
-    public Translator(String name) {
-        super(name);
-        foreignCenter.setName(name);
-    }
-
-    public void attack() {
-        foreignCenter.进攻();
-    }
-
-    public void defense() {
-        foreignCenter.防守();
     }
 }
 
