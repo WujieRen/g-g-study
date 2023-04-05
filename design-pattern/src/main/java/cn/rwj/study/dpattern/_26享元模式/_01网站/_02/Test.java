@@ -1,4 +1,4 @@
-package cn.rwj.study.dpattern._26享元模式_01网站._02;
+package cn.rwj.study.dpattern._26享元模式._01网站._02;
 
 import java.util.Hashtable;
 
