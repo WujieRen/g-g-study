@@ -1,4 +1,4 @@
-package cn.rwj.study.dpattern._07代理模式._01;
+package cn.rwj.study.dpattern._07代理模式._01谈恋爱._01;
 
 public class Test {
 
