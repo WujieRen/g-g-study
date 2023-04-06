@@ -1,4 +1,4 @@
-package cn.rwj.study.dpattern._24职责链模式_01申请加薪._02;
+package cn.rwj.study.dpattern._24职责链模式._01申请加薪._02;
 
 public class Test {
 
