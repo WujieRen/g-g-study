@@ -1,6 +1,4 @@
-package cn.rwj.study.dpattern._27解释器模式_01乐谱解释控件._02;
-
-import java.util.ArrayList;
+package cn.rwj.study.dpattern._27解释器模式._01乐谱解释控件._01;
 
 public class Test {
 
@@ -13,12 +11,12 @@ public class Test {
         PlayContext context = new PlayContext();
         //音乐-上海滩
         System.out.println("音乐-上海滩：");
-        context.setPlayText("T 500 O 2 E 0.5 G 0.5 A 3 E 0.5 G 0.5 D 3 E 0.5 G 0.5 A 0.5 O 3 C 1 O 2 A 0.5 G 1 C 0.5 E 0.5 D 3 ");
+        context.setPlayText("O 2 E 0.5 G 0.5 A 3 E 0.5 G 0.5 D 3 E 0.5 G 0.5 A 0.5 O 3 C 1 O 2 A 0.5 G 1 C 0.5 E 0.5 D 3 ");
 
         Expression expression = null;
+        //System.out.println(context.getPlayText().length());
         while (context.getPlayText().length() > 0) {
             String str = context.getPlayText().substring(0, 1);
-
             switch (str) {
                 case "O":
                     expression = new Scale();
@@ -33,15 +31,12 @@ public class Test {
                 case "P":
                     expression = new Note();
                     break;
-                case "T":
-                    expression = new Speed();
-                    break;
-
             }
             expression.interpret(context);
         }
 
         System.out.println();
+
         System.out.println();
         System.out.println("**********************************************");
     }
@@ -62,13 +57,12 @@ class PlayContext {
 
 //抽象表达式类
 abstract class Expression {
-    //解释器
+
     public void interpret(PlayContext context) {
         if (context.getPlayText().length() == 0) {
             return;
         } else {
             String playKey = context.getPlayText().substring(0, 1);
-            //System.out.println("playKey:"+playKey);
 
             context.setPlayText(context.getPlayText().substring(2));
 
@@ -76,11 +70,10 @@ abstract class Expression {
             context.setPlayText(context.getPlayText().substring(context.getPlayText().indexOf(" ") + 1));
 
             this.excute(playKey, playValue);
-
         }
     }
 
-    //执行
+    //抽象方法“执行”，不同的文法子类，有不同的执行处理
     public abstract void excute(String key, double value);
 }
 
@@ -133,22 +126,6 @@ class Scale extends Expression {
         System.out.print(scale + " ");
     }
 }
-
-//音速类
-class Speed extends Expression {
-    public void excute(String key, double value) {
-        String speed;
-        if (value < 500)
-            speed = "快速";
-        else if (value >= 1000)
-            speed = "慢速";
-        else
-            speed = "中速";
-
-        System.out.print(speed + " ");
-    }
-}
-
 
 
 
