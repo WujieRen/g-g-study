@@ -1,0 +1,43 @@
+spring:
+  kafka:
+    bootstrap-servers: m1.rwj.cn:9092
+    security:
+      protocol: SASL_PLAINTEXT
+    properties:
+      sasl:
+        mechanism: GSSAPI
+        kerberos:
+          domain:
+            name: HADOOP.COM
+          service:
+            name: kafka
+#    jaas:
+#      krb5Path: D:/test.conf
+#      confPath: D:/kafka_server_jaas.conf
+#      enabled: true
+#      login-module: com.sun.security.auth.module.Krb5LoginModule
+#      control-flag: required
+#      options:
+#        useKeyTab: true
+#        debug: true
+#        renewTGT: true
+#        useTicketCache: true
+#        storeKey: true
+#        keyTab: D:\\kafka.keytab
+#        principal: kafka/m1.rwj.cn@HADOOP.COM
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: index-engine
+    producer:
+      bootstrap-servers: m1.rwj.cn:9092
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      group-id: index-engine
+
+
+index:
+  kafka:
+    usage-times:
+      fixed-time: 10
+      topic: test
