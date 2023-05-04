@@ -1,47 +1,59 @@
 package cn.rwj.study.spring.kafka;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ConfigurableApplicationContext;
+
+import javax.annotation.PostConstruct;
+import java.util.Objects;
 
 /**
  * Springboot 集成 Kafka with Kerberos
  * 两种方式：
- *  1. Java src 原生代码集成，见 {@link cn.rwj.study.spring.kafka.javasrc.Test Test}
- *  2. 使用 Spring-kafka 集成；这种方式集成有两种方法：
- *      1. 直接配置文件配置 application.yml
- *      2. 自定义 KafkaJaasLoginModuleInitializer
- *
- *
+ * 1. Java src 原生代码集成，见 {@link cn.rwj.study.spring.kafka.javasrc.Test Test}
+ * 2. 使用 Spring-kafka 集成；这种方式集成有两种方法：
+ * 1. 直接配置文件配置 application.yml
+ * 2. 自定义 KafkaJaasLoginModuleInitializer
+ * <p>
+ * <p>
  * 原理：
- *  1. Kafka(Zookeeper) with Kerberos 环境准备好
- *  2. keytab、krb5.conf、jaas.conf 需要拉到本地
- *      注意：
- *          - krb5.conf 文件中不能包含Server端路径 includedir /etc/krb5.conf.d/
- *          - keytab 文件中，keyTab 值要配置成本地keyTab文件路径，如：keyTab="D:/kafka.keytab"
- *  3. 其他配置，略；详见 application.yml 或者 {@link cn.rwj.study.spring.kafka.springkafka.config.FirstWay FirstWay}
- *
+ * 1. Kafka(Zookeeper) with Kerberos 环境准备好
+ * 2. keytab、krb5.conf、jaas.conf 需要拉到本地
+ * 注意：
+ * - krb5.conf 文件中不能包含Server端路径 includedir /etc/krb5.conf.d/
+ * - keytab 文件中，keyTab 值要配置成本地keyTab文件路径，如：keyTab="D:/kafka.keytab"
+ * 3. 其他配置，略；详见 application.yml 或者 {@link cn.rwj.study.spring.kafka.springkafka.config.FirstWay FirstWay}
  */
 @SpringBootApplication
 public class Main {
 
+    @Value("${spring.kafka.jaas.jrb5File}")
+    private String jrb5File;
+
+    @Value("${spring.kafka.jaas.loginFile}")
+    private String loginFile;
+
     public static void main(String[] args) {
-        systemPropertisConfig();
         SpringApplication.run(Main.class, args);
     }
 
     /**
      * 系统环境属性 --- 设置
-     *
+     * <p>
      * 注:因为是系统参数，多出地方都要使用；所以直接写在启动类里面
-     *
+     * <p>
      * 注:设置系统环境属性 的 方式较多，这只是其中的一种
      *
      * @author JustryDeng
      * @date 2019/2/24 10:31
      */
-    private static void systemPropertisConfig(){
-        System.setProperty("java.security.krb5.conf", "D:/test.conf");
-        System.setProperty("java.security.auth.login.config", "D:/kafka_server_jaas.conf");
+    @PostConstruct
+    private void systemPropertisConfig() {
+        if (Objects.nonNull(jrb5File) && Objects.nonNull(loginFile)) {
+            System.setProperty("java.security.krb5.conf", jrb5File);
+            System.setProperty("java.security.auth.login.config", loginFile);
+        }
     }
 
 

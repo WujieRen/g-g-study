@@ -12,6 +12,8 @@ spring:
           service:
             name: kafka
     jaas:
+      jrb5File: D:/test.conf
+      loginFile: D:/kafka_server_jaas.conf
       enabled: true
       login-module: com.sun.security.auth.module.Krb5LoginModule
       control-flag: required
