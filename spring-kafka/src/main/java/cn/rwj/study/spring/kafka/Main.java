@@ -40,7 +40,7 @@ public class Main {
      * @date 2019/2/24 10:31
      */
     private static void systemPropertisConfig(){
-        System.setProperty("java.security.krb5.conf", "D:/d.conf");
+        System.setProperty("java.security.krb5.conf", "D:/test.conf");
         System.setProperty("java.security.auth.login.config", "D:/kafka_server_jaas.conf");
     }
 
