@@ -20,15 +20,15 @@ public class Test {
     public static KafkaConsumer<String, String> createConsumer() {
         systemPropertisConfig();
         Properties properties = new Properties();
-        properties.put("bootstrap.servers", "192.168.66.111:9092");
+        properties.put("bootstrap.servers", "10.114.12.46:6667");
         properties.put("group.id", "index-engine");
         properties.put("key.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
         properties.put("value.deserializer", "org.apache.kafka.common.serialization.StringDeserializer");
-        properties.put("security.protocol", "SASL_PLAINTEXT");
-        properties.put("sasl.mechanism", "GSSAPI");
-        properties.put("sasl.kerberos.service.name", "kafka");
-        properties.put("sasl.keystore.password", "kafka");
-        properties.put("sssl.keystore.location", "D:\\kafka.keytab");
+//        properties.put("security.protocol", "SASL_PLAINTEXT");
+//        properties.put("sasl.mechanism", "GSSAPI");
+//        properties.put("sasl.kerberos.service.name", "kafka");
+//        properties.put("sasl.keystore.password", "kafka");
+//        properties.put("sssl.keystore.location", "D:\\kafka.keytab");
 
         KafkaConsumer<String, String> kafkaConsumer = new KafkaConsumer<String, String>(properties);
         kafkaConsumer.subscribe(Arrays.asList("test"));
@@ -57,8 +57,8 @@ public class Test {
 
 
     private static void systemPropertisConfig() {
-        System.setProperty("java.security.krb5.conf", "D:/test.conf");
-        System.setProperty("java.security.auth.login.config", "D:/kafka_server_jaas.conf");
+//        System.setProperty("java.security.krb5.conf", "D:/test.conf");
+//        System.setProperty("java.security.auth.login.config", "D:/kafka_server_jaas.conf");
     }
 
     public static void main(String[] args) {
