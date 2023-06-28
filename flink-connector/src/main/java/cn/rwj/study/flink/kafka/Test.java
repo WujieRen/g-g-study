@@ -89,11 +89,13 @@ public class Test implements Serializable {
         streamSource.filter(Objects::nonNull).map((MapFunction<String, String>) value -> value)
                 .addSink(
                         JdbcSink.sink(
-                                "insert into g_g_study.test_flink_write_mq(id, write_time, message)values(?, ?, ?);",
+                                "INSERT INTO g_g_study.test_flink_write_mq(id, write_time, message) values(?, ?, ?) ON DUPLICATE KEY UPDATE write_time=?,message=?;",
                                 (statement, msg) -> {
-                                    statement.setLong(1, IdUtil.getSnowflakeNextId());
+                                    statement.setLong(1, 1673908095094009856L);
                                     statement.setTimestamp(2, Timestamp.valueOf(LocalDateTime.now()));
                                     statement.setString(3, msg);
+                                    statement.setTimestamp(4, Timestamp.valueOf(LocalDateTime.now()));
+                                    statement.setString(5, msg);
                                 },
                                 JdbcExecutionOptions.builder()
                                         .withBatchSize(1000)
@@ -112,9 +114,6 @@ public class Test implements Serializable {
 
         /** -----------------------    写法二   ------------------------------------ */
 //        streamSource.map((MapFunction<String, String>) value -> value).addSink(new MsgSinkToMysql());
-
-
-
 
         env.execute();
     }
