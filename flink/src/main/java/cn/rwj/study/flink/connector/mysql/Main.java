@@ -1,4 +1,4 @@
-package cn.rwj.study.flink.mysql;
+package cn.rwj.study.flink.connector.mysql;
 
 import org.apache.flink.api.common.functions.MapFunction;
 import org.apache.flink.connector.jdbc.JdbcConnectionOptions;

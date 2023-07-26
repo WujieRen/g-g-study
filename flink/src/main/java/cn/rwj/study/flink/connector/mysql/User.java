@@ -1,4 +1,4 @@
-package cn.rwj.study.flink.mysql;
+package cn.rwj.study.flink.connector.mysql;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

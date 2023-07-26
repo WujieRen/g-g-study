@@ -5,10 +5,10 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>cn.rwj.study.flink</groupId>
-    <artifactId>flink-connector</artifactId>
+    <artifactId>flink</artifactId>
     <version>1.0</version>
 
-    <name>flink-connector</name>
+    <name>flink</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

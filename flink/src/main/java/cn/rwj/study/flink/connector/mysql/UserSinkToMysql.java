@@ -1,4 +1,4 @@
-package cn.rwj.study.flink.mysql;
+package cn.rwj.study.flink.connector.mysql;
 
 import org.apache.flink.configuration.Configuration;
 import org.apache.flink.streaming.api.functions.sink.RichSinkFunction;

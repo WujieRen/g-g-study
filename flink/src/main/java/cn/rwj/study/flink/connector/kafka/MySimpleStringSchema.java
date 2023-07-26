@@ -1,4 +1,4 @@
-package cn.rwj.study.flink.kafka;
+package cn.rwj.study.flink.connector.kafka;
 
 import org.apache.flink.api.common.serialization.SimpleStringSchema;
 

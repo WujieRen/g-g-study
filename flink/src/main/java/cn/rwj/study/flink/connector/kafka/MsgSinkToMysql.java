@@ -1,4 +1,4 @@
-package cn.rwj.study.flink.kafka;
+package cn.rwj.study.flink.connector.kafka;
 
 import cn.hutool.core.util.IdUtil;
 import org.apache.flink.configuration.Configuration;
