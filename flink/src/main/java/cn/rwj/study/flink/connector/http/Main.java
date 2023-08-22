@@ -11,6 +11,9 @@ import java.io.OutputStream;
 import java.net.InetSocketAddress;
 
 /**
+ * 参考自来：
+ *      1、https://nightlies.apache.org/flink/flink-docs-release-1.14/zh/docs/dev/table/sourcessinks/
+ *      2、https://www.cnblogs.com/Springmoon-venn/p/15392511.html
  * @author rwj
  * @since 2023/8/21
  */
