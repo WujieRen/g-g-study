@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="true" scan="false" scanPeriod="10000">
+    <property name="LOG_HOME" value="logs"/>
+
+    <!-- 控制台输出 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <!-- 输出格式 -->
+            <pattern>
+                %d | %green(%5level) | %cyan(%t) | %blue(%c:%L) | %m%n
+            </pattern>
+        </encoder>
+        <!-- 控制台日志输出级别 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>error</level>
+        </filter>
+    </appender>
+
+    <!-- 运行日志文件输出 -->
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!--日志文件输出的文件名 -->
+            <FileNamePattern>${LOG_HOME}/dap-screen-%d{yyyyMMdd}-%i.log</FileNamePattern>
+            <!-- 自动删除多少天前的日志文件 -->
+            <MaxHistory>30</MaxHistory>
+            <!--日志文件最大的大小 -->
+            <TimeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <MaxFileSize>100MB</MaxFileSize>
+            </TimeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+        <!-- 日志文件输出格式 -->
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>
+                %d | %5level | %t | %c:%L | %m%n
+            </pattern>
+        </layout>
+        <!-- 运行日志输出级别 -->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>info</level>
+        </filter>
+    </appender>
+
+    <!-- 基础日志级别和输出方式 -->
+    <root level="info">
+        <appender-ref ref="console"/>
+        <appender-ref ref="file" />
+    </root>
+</configuration>
