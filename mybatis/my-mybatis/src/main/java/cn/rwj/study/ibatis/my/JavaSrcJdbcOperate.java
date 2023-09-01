@@ -7,7 +7,7 @@ import java.sql.*;
 /**
  * Hello world!
  */
-public class Main {
+public class JavaSrcJdbcOperate {
 
 
     public static void main(String[] args) {
