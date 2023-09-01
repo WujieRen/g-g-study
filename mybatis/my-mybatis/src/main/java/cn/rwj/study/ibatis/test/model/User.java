@@ -1,4 +1,4 @@
-package cn.rwj.study.ibatis.my.model;
+package cn.rwj.study.ibatis.test.model;
 
 import lombok.Data;
 import lombok.ToString;

@@ -1,13 +1,13 @@
 package cn.rwj.study.ibatis.my;
 
-import cn.rwj.study.ibatis.my.model.User;
+import cn.rwj.study.ibatis.test.model.User;
 
 import java.sql.*;
 
 /**
  * Hello world!
  */
-public class JavaSrcJdbcOperate {
+public class TestJavaSrcJdbcOperate {
 
 
     public static void main(String[] args) {
