@@ -1,0 +1,16 @@
+<configuration>
+
+    <!--配置数据库信息-->
+    <dataSource>
+        <property name="driverClassname" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://192.168.66.111:3306/mybatis" />
+        <property name="username" value="root" />
+        <property name="password" value="123qwe" />
+    </dataSource>
+
+    <!--引入映射配置文件，为了只加载一次xml-->
+    <mappers>
+        <mapper resource="mapper/UserMapper.xml"/>
+    </mappers>
+
+</configuration>

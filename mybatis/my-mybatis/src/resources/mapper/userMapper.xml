@@ -1,0 +1,13 @@
+<mapper namespace="user">
+
+    <!--查询所有-->
+    <select id="selectList" resultType="cn.rwj.study.ibatis.test.model.User" >
+        select * from my_user
+    </select>
+
+    <!--按条件查询-->
+    <select id="selectOne" resultType="cn.rwj.study.ibatis.test.model.User" parameterType="cn.rwj.study.ibatis.test.model.User" >
+        select * from my_user where id = #{id} and name = #{name}
+    </select>
+
+</mapper>
