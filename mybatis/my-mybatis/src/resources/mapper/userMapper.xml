@@ -1,4 +1,5 @@
-<mapper namespace="user">
+<!--<mapper namespace="user">-->
+<mapper namespace="cn.rwj.study.ibatis.test.dao.IUserDao">
 
     <!--查询所有-->
     <select id="selectList" resultType="cn.rwj.study.ibatis.test.model.User" >

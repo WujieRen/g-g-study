@@ -1,6 +1,7 @@
 package cn.rwj.study.ibatis.my;
 
 import cn.rwj.study.ibatis.my.io.Resources;
+import cn.rwj.study.ibatis.test.dao.IUserDao;
 import cn.rwj.study.ibatis.test.model.User;
 import cn.rwj.study.ibatis.my.sqlsession.SqlSession;
 import cn.rwj.study.ibatis.my.sqlsession.factory.SqlSessionFactory;
@@ -9,12 +10,13 @@ import org.junit.Test;
 
 import java.io.InputStream;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author rwj
  * @since 2023/9/1
  */
-public class TestV1 {
+public class TestCustomBatis {
 
 
     @Test
@@ -28,15 +30,24 @@ public class TestV1 {
         // 3.生产sqlSession 创建执行器对象
         SqlSession sqlSession = sqlSessionFactory.openSession();
 
+        IUserDao mapper = sqlSession.getMapper(IUserDao.class);
+        List<User> users = mapper.selectList();
+        if(Objects.nonNull(users) && users.size() > 0) {
+            users.forEach(System.out::println);
+        }
+
+        User rwj = mapper.selectOne(new User(1, "rwj"));
+        System.out.println(rwj);
+
         // 4.调用sqlSession方法
-        User user = new User();
+        /*User user = new User();
         user.setId(2);
         user.setName("slb");
         User userOne = sqlSession.selectOne("user.selectOne", user);
         System.out.println("查询单个用户：" + userOne);
 
         List<User> userList = sqlSession.selectList("user.selectList", null);
-        System.out.println("查询所有用户：" + userList.toString());
+        System.out.println("查询所有用户：" + userList.toString());*/
 
         // 5.释放资源
         sqlSession.close();
