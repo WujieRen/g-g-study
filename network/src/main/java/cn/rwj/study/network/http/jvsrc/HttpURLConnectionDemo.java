@@ -10,7 +10,7 @@ import java.util.Optional;
  * @author rwj
  * @since 2023/9/4
  */
-public class HttpURLConnectionUtil {
+public class HttpURLConnectionDemo {
 
     public static String doGet(String httpUrl) {
         //链接
