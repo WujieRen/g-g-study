@@ -1,4 +1,4 @@
-package cn.rwj.study.spring.springbasic.retry;
+package cn.rwj.study.spring.springbasic.retry.aspect;
 
 import cn.rwj.study.java.retry.RetryTemplate;
 import lombok.SneakyThrows;

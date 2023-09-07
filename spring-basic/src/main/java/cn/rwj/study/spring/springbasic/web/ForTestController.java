@@ -1,7 +1,7 @@
 package cn.rwj.study.spring.springbasic.web;
 
 import cn.rwj.study.spring.springbasic.BeanPostProcessorDemo.People;
-import cn.rwj.study.spring.springbasic.retry.RetryDot;
+import cn.rwj.study.spring.springbasic.retry.aspect.RetryDot;
 import cn.rwj.study.spring.utils.NetworkUtil;
 import org.junit.platform.commons.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
