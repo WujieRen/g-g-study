@@ -1,14 +1,15 @@
 package cn.rwj.study.spring.springbasic.web;
 
 import cn.rwj.study.spring.springbasic.BeanPostProcessorDemo.People;
-import cn.rwj.study.spring.springbasic.retry.aspect.RetryDot;
+import cn.rwj.study.spring.springbasic.retry.sprsrc.DeclarativeRetryService;
 import cn.rwj.study.spring.utils.NetworkUtil;
-import org.junit.platform.commons.util.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
+import java.util.HashMap;
 
 /**
  * @author rwj
@@ -58,7 +59,7 @@ public class ForTestController {
     }
 
 
-    @RetryDot(count = 3, asyn = true)
+    /*@RetryDot(count = 3, asyn = true)
     @GetMapping("retry/{num}")
     public void testRetry(@PathVariable Integer num) {
         if (num > 3) {
@@ -66,7 +67,16 @@ public class ForTestController {
         } else {
             System.out.println("测试重试");
         }
-    }
+    }*/
 
+    @Resource
+    private DeclarativeRetryService RetryService;
+
+    @GetMapping("retry/{num}")
+    public void testRetyr(@PathVariable Integer num) throws Throwable {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("kk", num);
+        RetryService.callBack("http://localhost:18866/test/post", map);
+    }
 
 }
