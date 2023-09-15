@@ -14,7 +14,7 @@ import java.util.stream.IntStream;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {CustomAopConfiguration.class})
-public class TestRetry {
+public class IdempotentRetry {
 
     @Autowired
     private RetryService retryService;

@@ -1,0 +1,14 @@
+server:
+  port: 8866
+
+# BeanPostProcessorDemo
+test:
+  demo: zhangsan
+
+# 接口幂等
+spring:
+  redis:
+    cluster:
+      nodes: 192.168.66.111:6379
+    password: 123qwe
+    database: 0
