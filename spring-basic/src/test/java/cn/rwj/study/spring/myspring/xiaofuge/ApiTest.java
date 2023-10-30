@@ -1,6 +1,6 @@
-package cn.rwj.study.spring.fake.xiaofuge;
+package cn.rwj.study.spring.myspring.xiaofuge;
 
-import cn.rwj.study.spring.fake.xiaofuge.bean.UserService;
+import cn.rwj.study.spring.myspring.xiaofuge.bean.UserService;
 import org.junit.Test;
 
 /**

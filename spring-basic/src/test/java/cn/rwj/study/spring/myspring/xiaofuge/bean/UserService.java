@@ -1,4 +1,4 @@
-package cn.rwj.study.spring.fake.xiaofuge.bean;
+package cn.rwj.study.spring.myspring.xiaofuge.bean;
 
 /**
  * @author rwj
