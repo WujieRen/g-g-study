@@ -1,22 +1,17 @@
 package cn.rwj.study.spring.myspring.xiaofuge;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-
 /**
  * @author rwj
  * @since 2023/10/26
  */
-public class BeanFactory {
+public interface BeanFactory {
 
-    private Map<String, BeanDefinition> beanDefinitionMap = new ConcurrentHashMap<>();
-
-    public Object getBean(String name) {
-        return beanDefinitionMap.get(name).getBean();
-    }
-
-    public void registerBeanDefinition(String name, BeanDefinition beanDefinition) {
-        beanDefinitionMap.put(name, beanDefinition);
-    }
+    /**
+     * 返回 Bean 的实例对象
+     * @param name 要检索的bean的名称
+     * @return 实例化的 Bean 对象
+     * @throws BeansException 不能获取 Bean 对象，则抛出异常
+     */
+    Object getBean(String name) throws BeansException;
 
 }
