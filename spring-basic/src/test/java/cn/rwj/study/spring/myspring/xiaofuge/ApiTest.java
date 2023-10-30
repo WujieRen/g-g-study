@@ -3,6 +3,7 @@ package cn.rwj.study.spring.myspring.xiaofuge;
 import cn.rwj.study.spring.myspring.xiaofuge.bean.UserService;
 import cn.rwj.study.spring.myspring.xiaofuge.factory.config.BeanDefinition;
 import cn.rwj.study.spring.myspring.xiaofuge.factory.supprt.DefaultListableBeanFactory;
+import cn.rwj.study.spring.myspring.xiaofuge.factory.supprt.SimpleInstantiationStrategy;
 import org.junit.Test;
 
 /**
@@ -22,6 +23,9 @@ public class ApiTest {
 
         // 3.第一次获取 bean
         UserService userService = (UserService) beanFactory.getBean("userService");
+        userService.queryUserInfo();
+
+        userService = (UserService) beanFactory.getBean("userService", "小傅哥");
         userService.queryUserInfo();
 
         // 4.第二次获取 bean from Singleton
