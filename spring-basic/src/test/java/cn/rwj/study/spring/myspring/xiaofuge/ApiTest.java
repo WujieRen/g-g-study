@@ -2,12 +2,14 @@ package cn.rwj.study.spring.myspring.xiaofuge;
 
 import cn.rwj.study.spring.myspring.xiaofuge.bean.UserDao;
 import cn.rwj.study.spring.myspring.xiaofuge.bean.UserService;
-import cn.rwj.study.spring.myspring.xiaofuge.factory.BeanReference;
-import cn.rwj.study.spring.myspring.xiaofuge.factory.PropertyValue;
-import cn.rwj.study.spring.myspring.xiaofuge.factory.PropertyValues;
-import cn.rwj.study.spring.myspring.xiaofuge.factory.config.BeanDefinition;
-import cn.rwj.study.spring.myspring.xiaofuge.factory.supprt.DefaultListableBeanFactory;
-import cn.rwj.study.spring.myspring.xiaofuge.factory.supprt.SimpleInstantiationStrategy;
+import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.config.BeanReference;
+import cn.rwj.study.spring.myspring.xiaofuge.beans.PropertyValue;
+import cn.rwj.study.spring.myspring.xiaofuge.beans.PropertyValues;
+import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.config.BeanDefinition;
+import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.supprt.DefaultListableBeanFactory;
+import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.xml.XmlBeanDefinitionReader;
+import cn.rwj.study.spring.myspring.xiaofuge.core.io.DefaultResourceLoader;
+import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -37,5 +39,28 @@ public class ApiTest {
         UserService userService = (UserService) beanFactory.getBean("userService");
         userService.queryUserInfo();
     }
+
+    private DefaultResourceLoader resourceLoader;
+
+    @Before
+    public void init() {
+        resourceLoader = new DefaultResourceLoader();
+    }
+
+    @Test
+    public void test_xml() {
+        // 1.初始化 BeanFactory
+        DefaultListableBeanFactory beanFactory = new DefaultListableBeanFactory();
+
+        // 2. 读取配置文件&注册Bean
+        XmlBeanDefinitionReader reader = new XmlBeanDefinitionReader(beanFactory);
+        reader.loadBeanDefinitions("classpath:spring.xml");
+
+        // 3. 获取Bean对象调用方法
+        UserService userService = beanFactory.getBean("userService", UserService.class);
+        String result = userService.queryUserInfo();
+        System.out.println("测试结果：" + result);
+    }
+
 
 }

@@ -10,8 +10,10 @@ public class UserService {
 
     private UserDao userDao;
 
-    public void queryUserInfo() {
-        System.out.println("查询用户信息：" + userDao.queryUserName(uId));
+    public String queryUserInfo() {
+        String s = userDao.queryUserName(uId);
+        System.out.println("查询用户信息：" + s);
+        return s;
     }
 
     public String getuId() {
