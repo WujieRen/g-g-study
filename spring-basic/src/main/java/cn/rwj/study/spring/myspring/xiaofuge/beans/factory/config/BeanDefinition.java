@@ -1,6 +1,6 @@
-package cn.rwj.study.spring.myspring.xiaofuge.factory.config;
+package cn.rwj.study.spring.myspring.xiaofuge.beans.factory.config;
 
-import cn.rwj.study.spring.myspring.xiaofuge.factory.PropertyValues;
+import cn.rwj.study.spring.myspring.xiaofuge.beans.PropertyValues;
 
 /**
  * @author rwj

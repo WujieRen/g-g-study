@@ -1,4 +1,4 @@
-package cn.rwj.study.spring.myspring.xiaofuge.factory.config;
+package cn.rwj.study.spring.myspring.xiaofuge.beans.factory.config;
 
 /**
  * @author rwj

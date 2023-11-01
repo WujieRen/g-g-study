@@ -1,11 +1,11 @@
-package cn.rwj.study.spring.myspring.xiaofuge.factory.supprt;
+package cn.rwj.study.spring.myspring.xiaofuge.beans.factory.supprt;
 
 import cn.hutool.core.bean.BeanUtil;
-import cn.rwj.study.spring.myspring.xiaofuge.BeansException;
-import cn.rwj.study.spring.myspring.xiaofuge.factory.BeanReference;
-import cn.rwj.study.spring.myspring.xiaofuge.factory.PropertyValue;
-import cn.rwj.study.spring.myspring.xiaofuge.factory.PropertyValues;
-import cn.rwj.study.spring.myspring.xiaofuge.factory.config.BeanDefinition;
+import cn.rwj.study.spring.myspring.xiaofuge.beans.BeansException;
+import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.config.BeanReference;
+import cn.rwj.study.spring.myspring.xiaofuge.beans.PropertyValue;
+import cn.rwj.study.spring.myspring.xiaofuge.beans.PropertyValues;
+import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.config.BeanDefinition;
 
 import java.lang.reflect.Constructor;
 

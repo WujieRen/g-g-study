@@ -1,4 +1,4 @@
-package cn.rwj.study.spring.myspring.xiaofuge.factory;
+package cn.rwj.study.spring.myspring.xiaofuge.beans;
 
 import java.util.ArrayList;
 import java.util.List;

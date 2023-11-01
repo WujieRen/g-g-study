@@ -1,4 +1,6 @@
-package cn.rwj.study.spring.myspring.xiaofuge;
+package cn.rwj.study.spring.myspring.xiaofuge.beans.factory;
+
+import cn.rwj.study.spring.myspring.xiaofuge.beans.BeansException;
 
 /**
  * @author rwj

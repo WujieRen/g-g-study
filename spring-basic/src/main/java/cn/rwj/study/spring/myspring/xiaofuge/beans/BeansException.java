@@ -1,4 +1,4 @@
-package cn.rwj.study.spring.myspring.xiaofuge;
+package cn.rwj.study.spring.myspring.xiaofuge.beans;
 
 /**
  *

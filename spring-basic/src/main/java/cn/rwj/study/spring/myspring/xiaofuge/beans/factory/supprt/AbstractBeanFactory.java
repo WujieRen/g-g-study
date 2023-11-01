@@ -1,8 +1,8 @@
-package cn.rwj.study.spring.myspring.xiaofuge.factory.supprt;
+package cn.rwj.study.spring.myspring.xiaofuge.beans.factory.supprt;
 
-import cn.rwj.study.spring.myspring.xiaofuge.BeanFactory;
-import cn.rwj.study.spring.myspring.xiaofuge.BeansException;
-import cn.rwj.study.spring.myspring.xiaofuge.factory.config.BeanDefinition;
+import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.BeanFactory;
+import cn.rwj.study.spring.myspring.xiaofuge.beans.BeansException;
+import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.config.BeanDefinition;
 
 /**
  * @author rwj

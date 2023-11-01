@@ -1,6 +1,6 @@
-package cn.rwj.study.spring.myspring.xiaofuge.factory.supprt;
+package cn.rwj.study.spring.myspring.xiaofuge.beans.factory.supprt;
 
-import cn.rwj.study.spring.myspring.xiaofuge.factory.config.SingletonBeanRegistry;
+import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.config.SingletonBeanRegistry;
 
 import java.util.HashMap;
 import java.util.Map;
