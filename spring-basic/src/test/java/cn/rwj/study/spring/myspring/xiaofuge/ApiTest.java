@@ -8,6 +8,7 @@ import cn.rwj.study.spring.myspring.xiaofuge.beans.PropertyValues;
 import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.config.BeanDefinition;
 import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.supprt.DefaultListableBeanFactory;
 import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.xml.XmlBeanDefinitionReader;
+import cn.rwj.study.spring.myspring.xiaofuge.context.support.ClassPathXmlApplicationContext;
 import cn.rwj.study.spring.myspring.xiaofuge.core.io.DefaultResourceLoader;
 import org.junit.Before;
 import org.junit.Test;
@@ -58,6 +59,17 @@ public class ApiTest {
 
         // 3. 获取Bean对象调用方法
         UserService userService = beanFactory.getBean("userService", UserService.class);
+        String result = userService.queryUserInfo();
+        System.out.println("测试结果：" + result);
+    }
+
+    @Test
+    public void test_cxt() {
+        // 1.初始化 BeanFactory
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:spring.xml");
+
+        // 3. 获取Bean对象调用方法
+        UserService userService = applicationContext.getBean("userService", UserService.class);
         String result = userService.queryUserInfo();
         System.out.println("测试结果：" + result);
     }
