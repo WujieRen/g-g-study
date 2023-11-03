@@ -7,13 +7,12 @@ package cn.rwj.study.spring.myspring.xiaofuge.bean;
 public class UserService {
 
     private String uId;
-
+    private String company;
+    private String location;
     private UserDao userDao;
 
     public String queryUserInfo() {
-        String s = userDao.queryUserName(uId);
-        System.out.println("查询用户信息：" + s);
-        return s;
+        return userDao.queryUserName(uId) + "," + company + "," + location;
     }
 
     public String getuId() {
@@ -22,6 +21,22 @@ public class UserService {
 
     public void setuId(String uId) {
         this.uId = uId;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public UserDao getUserDao() {
