@@ -1,13 +1,18 @@
 package cn.rwj.study.spring.myspring.xiaofuge.bean;
 
-import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.DisposableBean;
-import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.InitializingBean;
+import cn.rwj.study.spring.myspring.xiaofuge.beans.BeansException;
+import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.*;
+import cn.rwj.study.spring.myspring.xiaofuge.context.ApplicationContext;
+import cn.rwj.study.spring.myspring.xiaofuge.context.ApplicationContextAware;
 
 /**
  * @author rwj
  * @since 2023/10/26
  */
-public class UserService implements InitializingBean, DisposableBean {
+public class UserService implements BeanNameAware, BeanClassLoaderAware, ApplicationContextAware, BeanFactoryAware {
+
+    private ApplicationContext applicationContext;
+    private BeanFactory beanFactory;
 
     private String uId;
     private String company;
@@ -51,12 +56,31 @@ public class UserService implements InitializingBean, DisposableBean {
     }
 
     @Override
-    public void destroy() throws Exception {
-        System.out.println("执行：UserService.destroy");
+    public void setBeanClassLoader(ClassLoader classLoader) {
+        System.out.println("ClassLoader：" + classLoader);
     }
 
     @Override
-    public void afterPropertiesSet() throws Exception {
-        System.out.println("执行：UserService.afterPropertiesSet");
+    public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
+        this.beanFactory = beanFactory;
     }
+
+    @Override
+    public void setBeanName(String name) {
+        System.out.println("Bean Name is：" + name);
+    }
+
+    @Override
+    public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        this.applicationContext = applicationContext;
+    }
+
+    public ApplicationContext getApplicationContext() {
+        return applicationContext;
+    }
+
+    public BeanFactory getBeanFactory() {
+        return beanFactory;
+    }
+
 }

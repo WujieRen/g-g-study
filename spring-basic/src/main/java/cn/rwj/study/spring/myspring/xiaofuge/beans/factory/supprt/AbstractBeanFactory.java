@@ -4,6 +4,7 @@ import cn.rwj.study.spring.myspring.xiaofuge.beans.BeansException;
 import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.ConfigurableBeanFactory;
 import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.config.BeanDefinition;
 import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.config.BeanPostProcessor;
+import cn.rwj.study.spring.myspring.xiaofuge.utils.ClassUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,11 @@ import java.util.List;
  * @since 2023/10/30
  */
 public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry implements ConfigurableBeanFactory {
+
+    /**
+     * ClassLoader to resolve bean class names with, if necessary
+     */
+    private ClassLoader beanClassLoader = ClassUtil.getDefaultClassLoader();
 
     /**
      * BeanPostProcessors to apply in createBean
@@ -60,6 +66,10 @@ public abstract class AbstractBeanFactory extends DefaultSingletonBeanRegistry i
      */
     public List<BeanPostProcessor> getBeanPostProcessors() {
         return this.beanPostProcessors;
+    }
+
+    public ClassLoader getBeanClassLoader() {
+        return this.beanClassLoader;
     }
 
 }

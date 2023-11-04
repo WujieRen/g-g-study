@@ -3,8 +3,7 @@ package cn.rwj.study.spring.myspring.xiaofuge.beans.factory.supprt;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.rwj.study.spring.myspring.xiaofuge.beans.BeansException;
-import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.DisposableBean;
-import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.InitializingBean;
+import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.*;
 import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.config.AutowireCapableBeanFactory;
 import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.config.BeanPostProcessor;
 import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.config.BeanReference;
@@ -50,6 +49,19 @@ public abstract class AbstractAutowireCapableBeanFactory extends AbstractBeanFac
     }
 
     private Object initializeBean(String beanName, Object bean, BeanDefinition beanDefinition) {
+        // invokeAwareMethods
+        if (bean instanceof Aware) {
+            if (bean instanceof BeanFactoryAware) {
+                ((BeanFactoryAware) bean).setBeanFactory(this);
+            }
+            if (bean instanceof BeanClassLoaderAware) {
+                ((BeanClassLoaderAware) bean).setBeanClassLoader(getBeanClassLoader());
+            }
+            if (bean instanceof BeanNameAware) {
+                ((BeanNameAware) bean).setBeanName(beanName);
+            }
+        }
+
         // 1. 执行 BeanPostProcessor Before 处理
         Object wrappedBean = applyBeanPostProcessorsBeforeInitialization(bean, beanName);
 
