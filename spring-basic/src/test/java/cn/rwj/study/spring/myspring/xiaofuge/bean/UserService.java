@@ -1,10 +1,13 @@
 package cn.rwj.study.spring.myspring.xiaofuge.bean;
 
+import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.DisposableBean;
+import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.InitializingBean;
+
 /**
  * @author rwj
  * @since 2023/10/26
  */
-public class UserService {
+public class UserService implements InitializingBean, DisposableBean {
 
     private String uId;
     private String company;
@@ -47,4 +50,13 @@ public class UserService {
         this.userDao = userDao;
     }
 
+    @Override
+    public void destroy() throws Exception {
+        System.out.println("执行：UserService.destroy");
+    }
+
+    @Override
+    public void afterPropertiesSet() throws Exception {
+        System.out.println("执行：UserService.afterPropertiesSet");
+    }
 }
