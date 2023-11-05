@@ -12,6 +12,10 @@ import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.config.BeanPostProces
  */
 public interface ConfigurableBeanFactory extends HierarchicalBeanFactory {
 
+    String SCOPE_SINGLETON = "singleton";
+
+    String SCOPE_PROTOTYPE = "prototype";
+
     void addBeanPostProcessor(BeanPostProcessor beanPostProcessor);
 
     /**
