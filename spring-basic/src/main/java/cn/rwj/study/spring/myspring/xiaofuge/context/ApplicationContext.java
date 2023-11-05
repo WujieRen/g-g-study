@@ -1,6 +1,8 @@
 package cn.rwj.study.spring.myspring.xiaofuge.context;
 
+import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.HierarchicalBeanFactory;
 import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.ListableBeanFactory;
+import cn.rwj.study.spring.myspring.xiaofuge.core.io.ResourceLoader;
 
 /**
  * 应用上下文接口 Central interface to provide configuration for an application.
@@ -9,5 +11,5 @@ import cn.rwj.study.spring.myspring.xiaofuge.beans.factory.ListableBeanFactory;
  * @author rwj
  * @since 2023/11/1
  */
-public interface ApplicationContext extends ListableBeanFactory {
+public interface ApplicationContext extends ListableBeanFactory, HierarchicalBeanFactory, ResourceLoader, ApplicationEventPublisher {
 }
