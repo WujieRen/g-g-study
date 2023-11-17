@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans>
+
+    <bean id="userService" class="cn.rwj.study.spring.myspring.xiaofuge.aopinvolve.UserService"/>
+
+    <bean class="cn.rwj.study.spring.myspring.xiaofuge.aop.framework.autoProxy.DefaultAdvisorAutoProxyCreator"/>
+
+    <bean id="beforeAdvice" class="cn.rwj.study.spring.myspring.xiaofuge.aopinvolve.UserServiceBeforeAdvice"/>
+
+    <bean id="methodInterceptor" class="cn.rwj.study.spring.myspring.xiaofuge.aop.framework.adapter.MethodBeforeAdviceInterceptor">
+        <property name="advice" ref="beforeAdvice"/>
+    </bean>
+
+    <bean id="pointcutAdvisor" class="cn.rwj.study.spring.myspring.xiaofuge.aop.aspectj.AspectJExpressionPointcutAdvisor">
+        <property name="expression" value="execution(* cn.rwj.study.spring.myspring.xiaofuge.aopinvolve.IUserService.*(..))"/>
+        <property name="advice" ref="methodInterceptor"/>
+    </bean>
+
+</beans>
