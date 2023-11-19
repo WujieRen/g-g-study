@@ -18,4 +18,11 @@ public class TestAutoScan {
         System.out.println("测试结果：" + System.identityHashCode(userService));
     }
 
+    @Test
+    public void test_property() {
+        ClassPathXmlApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:@value/spring-property.xml");
+        IUserService userService = applicationContext.getBean("userService", IUserService.class);
+        System.out.println("测试结果：" + userService);
+    }
+
 }
