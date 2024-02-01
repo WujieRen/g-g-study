@@ -1,8 +1,12 @@
 package cn.rwj.study.spring.springbasic.web;
 
+import cn.hutool.core.util.NumberUtil;
 import cn.rwj.study.spring.springbasic.BeanPostProcessorDemo.People;
 import cn.rwj.study.spring.springbasic.retry.sprsrc.DeclarativeRetryService;
 import cn.rwj.study.spring.utils.NetworkUtil;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +14,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Objects;
 
 /**
  * @author rwj
@@ -79,4 +84,31 @@ public class ForTestController {
         RetryService.callBack("http://localhost:18866/test/post", map);
     }
 
+    @GetMapping("udf")
+    public String udfGet(@RequestParam String name, @RequestParam String sex) {
+        String res = String.format("人名：%s -- 性别：%s", name, sex);
+        System.out.println(res);
+        return res;
+    }
+
+    @PostMapping("udf")
+    public String udfPost(@RequestBody User user) {
+        boolean equals = Objects.equals(user.getSex(), "1");
+        if(equals) {
+            user.setSex("男");
+        } else {
+            user.setSex("女");
+        }
+        System.out.println(user);
+        return user.toString();
+    }
+
+}
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+class User {
+    private String name;
+    private String sex;
 }
