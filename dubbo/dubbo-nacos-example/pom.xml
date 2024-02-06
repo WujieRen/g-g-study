@@ -1,0 +1,54 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>cn.rwj.study.dubbo</groupId>
+        <artifactId>dubbo</artifactId>
+        <version>1.0</version>
+    </parent>
+
+    <artifactId>dubbo-nacos-example</artifactId>
+    <name>dubbo-nacos-example</name>
+    <modules>
+        <module>public-api</module>
+        <module>provider</module>
+        <module>consumer</module>
+    </modules>
+    <packaging>pom</packaging>
+    <description>duboo与nacos整合的父工程</description>
+
+    <properties>
+        <java.version>11</java.version>
+
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <dubbo.version>2.7.13</dubbo.version>
+        <nacos.version>2.0.3</nacos.version>
+    </properties>
+
+    <dependencies>
+        <!-- nacos -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
+        <!-- dubbo -->
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+            <version>${dubbo.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-registry-nacos</artifactId>
+            <version>${dubbo.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo</artifactId>
+            <version>${dubbo.version}</version>
+        </dependency>
+    </dependencies>
+</project>

@@ -1,0 +1,31 @@
+server:
+  port: 8180
+
+spring:
+  application:
+    name: dubbo-provider
+  cloud:
+    nacos:
+      discovery:
+        #nacos注册中心地址
+        server-addr: localhost:8848
+        #nacos注册中心命名空间
+        namespace: rfl
+        #nacos注册中心分组
+        group: dubbo
+
+dubbo:
+  scan:
+    base-packages: cn.rwj.study.dubbo  #扫包范围
+  protocol:
+    name: dubbo #dubbo协议
+    port: 20880 #协议端口
+  registry:
+    address: nacos://127.0.0.1:8848 #注册地址
+    parameters:
+      namespace: rfl
+      group: dubbo
+  application:
+    name: dubbo-provider #应用名
+  provider:
+    timeout: 30000 #超时时间
