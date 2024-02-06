@@ -15,12 +15,19 @@ spring:
         group: dubbo
 
 dubbo:
+  application:
+    name: dubbo-consumer #应用名
+  scan:
+    base-packages: cn.rwj.study.dubbo  #扫包范围
+  protocol:
+    name: dubbo #dubbo协议
+    port: 20881 #协议端口
   registry:
     address: nacos://127.0.0.1:8848 #注册地址
     parameters:
       namespace: rfl
       group: dubbo
-  application:
-    name: dubbo-consumer #应用名
+  provider:
+    timeout: 3000
   consumer:
     timeout: 30000 #超时时间

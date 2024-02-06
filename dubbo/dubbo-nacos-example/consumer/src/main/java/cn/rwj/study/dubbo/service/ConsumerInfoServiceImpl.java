@@ -1,4 +1,4 @@
-package cn.rwj.study.dubbo.provider.service;
+package cn.rwj.study.dubbo.service;
 
 import cn.rwj.study.dubbo.InfoService;
 import org.apache.dubbo.config.annotation.DubboService;
@@ -11,10 +11,10 @@ import org.springframework.stereotype.Service;
 @Service
 // Service引入的是org.apache.dubbo.config.annotation.Service包
 // dubbo提供的Service注解，用于声明对外暴露服务
-@DubboService(group = "providerInfoServiceImpl")
-public class ProviderInfoServiceImpl implements InfoService {
+@DubboService(group = "consumerInfoServiceImpl")
+public class ConsumerInfoServiceImpl implements InfoService {
     @Override
     public String getInfo() {
-        return "hello，这里是dubbo-provider模块！";
+        return "hello，这里是dubbo-consumser！";
     }
 }
