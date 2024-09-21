@@ -2,6 +2,8 @@ package cn.rwj.study.mybatis.binding;
 
 
 import cn.rwj.study.mybatis.dao.IUserDao;
+import cn.rwj.study.mybatis.session.SqlSession;
+import cn.rwj.study.mybatis.session.defaults.DefaultSqlSessionFactory;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 
@@ -15,13 +17,18 @@ public class MapperProxyFactoryTest {
 
     @Test
     public void newInstance() {
-        Map<String, String> sqlSession = new HashMap<>();
-        sqlSession.put("cn.rwj.study.mybatis.dao.IUserDao.queryUserName", "模拟执行 Mapper.xml 中 SQL 语句的操作：查询用户姓名");
-        sqlSession.put("cn.rwj.study.mybatis.dao.IUserDao.queryUserAge", "模拟执行 Mapper.xml 中 SQL 语句的操作：查询用户年龄");
+        // 1. 注册 Mapper
+        MapperRegistry mapperRegistry = new MapperRegistry();
+        mapperRegistry.addMappers("cn.rwj.study.mybatis.dao");
 
-        MapperProxyFactory<IUserDao> factory = new MapperProxyFactory<>(IUserDao.class);
-        IUserDao userDao = factory.newInstance(sqlSession);
+        //  2. 从 SqlSession 工厂获取 Session
+        DefaultSqlSessionFactory defaultSqlSessionFactory = new DefaultSqlSessionFactory(mapperRegistry);
+        SqlSession sqlSession = defaultSqlSessionFactory.openSession();
 
+        // 3. 获取映射器对象
+        IUserDao userDao = sqlSession.getMapper(IUserDao.class);
+
+        // 4. 测试验证
         String res = userDao.queryUserName("10001");
         log.info("测试结果：{}", res);
     }
