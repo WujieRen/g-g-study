@@ -1,17 +1,24 @@
 package cn.rwj.study.mybatis.builder.xml;
 
+import cn.hutool.core.util.StrUtil;
 import cn.rwj.study.mybatis.builder.BaseBuilder;
+import cn.rwj.study.mybatis.datasource.DataSourceFactory;
 import cn.rwj.study.mybatis.io.Resources;
+import cn.rwj.study.mybatis.mappig.BoundSql;
+import cn.rwj.study.mybatis.mappig.Environment;
 import cn.rwj.study.mybatis.mappig.MappedStatement;
 import cn.rwj.study.mybatis.mappig.SqlCommandType;
 import cn.rwj.study.mybatis.session.Configuration;
+import cn.rwj.study.mybatis.transaction.TransactionFactory;
 import java.io.Reader;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Properties;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.sql.DataSource;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Element;
@@ -48,12 +55,45 @@ public class XMLConfigBuilder extends BaseBuilder {
      */
     public Configuration parse() {
         try {
+            // 环境
+            environmentsElement(root.element("environments"));
             // 解析映射器
             mapperElement(root.element("mappers"));
         } catch (Exception e) {
             throw new RuntimeException("Error parsing SQL Mapper Configuration. Cause: " + e, e);
         }
         return configuration;
+    }
+
+    private void environmentsElement(Element context) throws Exception {
+        String environment = context.attributeValue("default");
+
+        List<Element> elements = context.elements("environment");
+        for (Element e : elements) {
+            String id = e.attributeValue("id");
+            if (StrUtil.equalsIgnoreCase(environment, id)) {
+                // 事务管理器
+                TransactionFactory txFactory = (TransactionFactory) typeAliasRegistry.resolveAlias(e.element("transactionManager").attributeValue("type")).newInstance();
+
+                // 数据源
+                Element dataSourceElement = e.element("dataSource");
+                DataSourceFactory dataSourceFactory = (DataSourceFactory) typeAliasRegistry.resolveAlias(dataSourceElement.attributeValue("type")).newInstance();
+                List<Element> propertyList = dataSourceElement.elements("property");
+                Properties props = new Properties();
+                for (Element property : propertyList) {
+                    props.setProperty(property.attributeValue("name"), property.attributeValue("value"));
+                }
+                dataSourceFactory.setProperties(props);
+                DataSource dataSource = dataSourceFactory.getDataSource();
+
+                // 构建环境
+                Environment.Builder environmentBuilder = new Environment.Builder(id)
+                        .transactionFactory(txFactory)
+                        .dataSource(dataSource);
+
+                configuration.setEnvironment(environmentBuilder.build());
+            }
+        }
     }
 
     private void mapperElement(Element mappers) throws Exception {
@@ -88,7 +128,8 @@ public class XMLConfigBuilder extends BaseBuilder {
                 String msId = namespace + "." + id;
                 String nodeName = node.getName();
                 SqlCommandType sqlCommandType = SqlCommandType.valueOf(nodeName.toUpperCase(Locale.ENGLISH));
-                MappedStatement mappedStatement = new MappedStatement.Builder(configuration, msId, sqlCommandType, parameterType, resultType, sql, parameter).build();
+                BoundSql boundSql = new BoundSql(sql, parameter, parameterType, resultType);
+                MappedStatement mappedStatement = new MappedStatement.Builder(configuration, msId, sqlCommandType, boundSql).build();
                 // 添加解析 SQL
                 configuration.addMappedStatement(mappedStatement);
             }
