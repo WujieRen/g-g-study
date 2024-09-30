@@ -2,6 +2,8 @@ package cn.rwj.study.mybatis.session;
 
 import cn.rwj.study.mybatis.binding.MapperRegistry;
 import cn.rwj.study.mybatis.datasource.druid.DruidDataSourceFactory;
+import cn.rwj.study.mybatis.datasource.pooled.PooledDataSourceFactory;
+import cn.rwj.study.mybatis.datasource.unpooled.UnpooledDataSourceFactory;
 import cn.rwj.study.mybatis.mappig.Environment;
 import cn.rwj.study.mybatis.mappig.MappedStatement;
 import cn.rwj.study.mybatis.transaction.jdbc.JdbcTransactionFactory;
@@ -36,6 +38,8 @@ public class Configuration {
     public Configuration() {
         typeAliasRegistry.registerAlias("JDBC", JdbcTransactionFactory.class);
         typeAliasRegistry.registerAlias("DRUID", DruidDataSourceFactory.class);
+        typeAliasRegistry.registerAlias("UNPOOLED", UnpooledDataSourceFactory.class);
+        typeAliasRegistry.registerAlias("POOLED", PooledDataSourceFactory.class);
     }
 
 
