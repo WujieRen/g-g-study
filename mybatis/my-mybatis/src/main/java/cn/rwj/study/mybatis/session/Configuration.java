@@ -4,10 +4,19 @@ import cn.rwj.study.mybatis.binding.MapperRegistry;
 import cn.rwj.study.mybatis.datasource.druid.DruidDataSourceFactory;
 import cn.rwj.study.mybatis.datasource.pooled.PooledDataSourceFactory;
 import cn.rwj.study.mybatis.datasource.unpooled.UnpooledDataSourceFactory;
+import cn.rwj.study.mybatis.executor.Executor;
+import cn.rwj.study.mybatis.executor.SimpleExecutor;
+import cn.rwj.study.mybatis.executor.resultset.DefaultResultSetHandler;
+import cn.rwj.study.mybatis.executor.resultset.ResultSetHandler;
+import cn.rwj.study.mybatis.executor.statement.PreparedStatementHandler;
+import cn.rwj.study.mybatis.executor.statement.StatementHandler;
+import cn.rwj.study.mybatis.mappig.BoundSql;
 import cn.rwj.study.mybatis.mappig.Environment;
 import cn.rwj.study.mybatis.mappig.MappedStatement;
+import cn.rwj.study.mybatis.transaction.Transaction;
 import cn.rwj.study.mybatis.transaction.jdbc.JdbcTransactionFactory;
 import cn.rwj.study.mybatis.type.TypeAliasRegistry;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -70,7 +79,7 @@ public class Configuration {
     public TypeAliasRegistry getTypeAliasRegistry() {
         return typeAliasRegistry;
     }
-    
+
     public Environment getEnvironment() {
         return environment;
     }
@@ -79,4 +88,28 @@ public class Configuration {
         this.environment = environment;
     }
 
+    /**
+     * 创建结果集处理器
+     */
+    public ResultSetHandler newResultSetHandler(Executor executor, MappedStatement mappedStatement, BoundSql boundSql) {
+        return new DefaultResultSetHandler(executor, mappedStatement, boundSql);
+    }
+
+    /**
+     * 生产执行器
+     */
+    public Executor newExecutor(Transaction transaction) {
+        return new SimpleExecutor(this, transaction);
+    }
+
+    /**
+     * 创建语句处理器
+     */
+    public StatementHandler newStatementHandler(Executor executor,
+                                                MappedStatement mappedStatement,
+                                                Object parameter,
+                                                ResultHandler resultHandler,
+                                                BoundSql boundSql) {
+        return new PreparedStatementHandler(executor, mappedStatement, parameter, resultHandler, boundSql);
+    }
 }
