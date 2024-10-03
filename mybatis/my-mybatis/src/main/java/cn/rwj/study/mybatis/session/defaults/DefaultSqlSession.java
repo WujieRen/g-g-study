@@ -1,5 +1,6 @@
 package cn.rwj.study.mybatis.session.defaults;
 
+import cn.hutool.core.collection.CollUtil;
 import cn.rwj.study.mybatis.executor.Executor;
 import cn.rwj.study.mybatis.mappig.MappedStatement;
 import cn.rwj.study.mybatis.session.Configuration;
@@ -29,8 +30,8 @@ public class DefaultSqlSession implements SqlSession {
     @Override
     public <T> T selectOne(String statement, Object parameter) {
         MappedStatement ms = configuration.getMappedStatement(statement);
-        List<T> list = executor.query(ms, parameter, Executor.NO_RESULT_HANDLER, ms.getBoundSql());
-        return list.get(0);
+        List<T> list = executor.query(ms, parameter, Executor.NO_RESULT_HANDLER, ms.getSqlSource().getBoundSql(parameter));
+        return CollUtil.isEmpty(list) ? null : list.get(0);
     }
 
 
