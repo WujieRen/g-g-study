@@ -6,6 +6,7 @@ import cn.rwj.study.mybatis.datasource.pooled.PooledDataSourceFactory;
 import cn.rwj.study.mybatis.datasource.unpooled.UnpooledDataSourceFactory;
 import cn.rwj.study.mybatis.executor.Executor;
 import cn.rwj.study.mybatis.executor.SimpleExecutor;
+import cn.rwj.study.mybatis.executor.parameter.ParameterHandler;
 import cn.rwj.study.mybatis.executor.resultset.DefaultResultSetHandler;
 import cn.rwj.study.mybatis.executor.resultset.ResultSetHandler;
 import cn.rwj.study.mybatis.executor.statement.PreparedStatementHandler;
@@ -18,6 +19,7 @@ import cn.rwj.study.mybatis.reflection.factory.DefaultObjectFactory;
 import cn.rwj.study.mybatis.reflection.factory.ObjectFactory;
 import cn.rwj.study.mybatis.reflection.wrapper.DefaultObjectWrapperFactory;
 import cn.rwj.study.mybatis.reflection.wrapper.ObjectWrapperFactory;
+import cn.rwj.study.mybatis.scripting.LanguageDriver;
 import cn.rwj.study.mybatis.scripting.LanguageDriverRegistry;
 import cn.rwj.study.mybatis.scripting.xmltags.XMLLanguageDriver;
 import cn.rwj.study.mybatis.transaction.Transaction;
@@ -159,6 +161,17 @@ public class Configuration {
 
     public LanguageDriverRegistry getLanguageRegistry() {
         return languageRegistry;
+    }
+    
+    public ParameterHandler newParameterHandler(MappedStatement mappedStatement, Object parameterObject, BoundSql boundSql) {
+        // 创建参数处理器
+        ParameterHandler parameterHandler = mappedStatement.getLang().createParameterHandler(mappedStatement, parameterObject, boundSql);
+        // 插件的一些参数，也是在这里处理，暂时不添加这部分内容 interceptorChain.pluginAll(parameterHandler);
+        return parameterHandler;
+    }
+
+    public LanguageDriver getDefaultScriptingLanguageInstance() {
+        return languageRegistry.getDefaultDriver();
     }
 
 }

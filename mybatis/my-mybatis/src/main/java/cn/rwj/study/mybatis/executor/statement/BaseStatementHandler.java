@@ -1,6 +1,7 @@
 package cn.rwj.study.mybatis.executor.statement;
 
 import cn.rwj.study.mybatis.executor.Executor;
+import cn.rwj.study.mybatis.executor.parameter.ParameterHandler;
 import cn.rwj.study.mybatis.executor.resultset.ResultSetHandler;
 import cn.rwj.study.mybatis.mappig.BoundSql;
 import cn.rwj.study.mybatis.mappig.MappedStatement;
@@ -28,6 +29,8 @@ public abstract class BaseStatementHandler implements StatementHandler {
 
     protected BoundSql boundSql;
 
+    protected final ParameterHandler parameterHandler;
+
     public BaseStatementHandler(Executor executor,
                                 MappedStatement mappedStatement,
                                 Object parameterObject,
@@ -39,6 +42,7 @@ public abstract class BaseStatementHandler implements StatementHandler {
         this.boundSql = boundSql;
 
         this.parameterObject = parameterObject;
+        this.parameterHandler = configuration.newParameterHandler(mappedStatement, parameterObject, boundSql);
         this.resultSetHandler = configuration.newResultSetHandler(executor, mappedStatement, boundSql);
     }
 

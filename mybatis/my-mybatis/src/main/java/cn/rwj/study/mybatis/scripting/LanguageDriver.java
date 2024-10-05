@@ -1,5 +1,8 @@
 package cn.rwj.study.mybatis.scripting;
 
+import cn.rwj.study.mybatis.executor.parameter.ParameterHandler;
+import cn.rwj.study.mybatis.mappig.BoundSql;
+import cn.rwj.study.mybatis.mappig.MappedStatement;
 import cn.rwj.study.mybatis.mappig.SqlSource;
 import cn.rwj.study.mybatis.session.Configuration;
 import org.dom4j.Element;
@@ -12,6 +15,14 @@ import org.dom4j.Element;
  */
 public interface LanguageDriver {
 
+    /**
+     * 创建SQL源码(mapper xml方式)
+     */
     SqlSource createSqlSource(Configuration configuration, Element script, Class<?> parameterType);
+
+    /**
+     * 创建参数处理器
+     */
+    ParameterHandler createParameterHandler(MappedStatement mappedStatement, Object parameterObject, BoundSql boundSql);
 
 }

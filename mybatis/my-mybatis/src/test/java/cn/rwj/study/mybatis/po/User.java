@@ -1,7 +1,7 @@
 package cn.rwj.study.mybatis.po;
 
 
-import java.sql.Date;
+import java.util.Date;
 
 /**
  * @author rwj
@@ -17,9 +17,21 @@ public class User {
     // 头像
     private String userHead;
     // 创建时间
-    private Date createTime;
+    private java.util.Date createTime;
     // 更新时间
-    private Date updateTime;
+    private java.util.Date updateTime;
+
+    public User() {
+    }
+
+    public User(Long id) {
+        this.id = id;
+    }
+
+    public User(Long id, String userId) {
+        this.id = id;
+        this.userId = userId;
+    }
 
     public Long getId() {
         return id;
@@ -53,15 +65,15 @@ public class User {
         this.userHead = userHead;
     }
 
-    public Date getCreateTime() {
+    public java.util.Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(java.util.Date createTime) {
         this.createTime = createTime;
     }
 
-    public Date getUpdateTime() {
+    public java.util.Date getUpdateTime() {
         return updateTime;
     }
 
