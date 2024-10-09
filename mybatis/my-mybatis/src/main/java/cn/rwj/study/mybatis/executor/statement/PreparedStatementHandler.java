@@ -4,6 +4,7 @@ import cn.rwj.study.mybatis.executor.Executor;
 import cn.rwj.study.mybatis.mappig.BoundSql;
 import cn.rwj.study.mybatis.mappig.MappedStatement;
 import cn.rwj.study.mybatis.session.ResultHandler;
+import cn.rwj.study.mybatis.session.RowBounds;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,8 +20,8 @@ import java.util.List;
  */
 public class PreparedStatementHandler extends BaseStatementHandler {
 
-    public PreparedStatementHandler(Executor executor, MappedStatement mappedStatement, Object parameterObject, cn.rwj.study.mybatis.session.ResultHandler resultHandler, BoundSql boundSql) {
-        super(executor, mappedStatement, parameterObject, resultHandler, boundSql);
+    public PreparedStatementHandler(Executor executor, MappedStatement mappedStatement, Object parameterObject, RowBounds rowBounds, ResultHandler resultHandler, BoundSql boundSql) {
+        super(executor, mappedStatement, parameterObject, rowBounds, resultHandler, boundSql);
     }
 
     @Override
@@ -37,7 +38,7 @@ public class PreparedStatementHandler extends BaseStatementHandler {
     @Override
     public <E> List<E> query(Statement statement, ResultHandler resultHandler) throws SQLException {
         PreparedStatement ps = (PreparedStatement) statement;
-        ps.executeQuery();
+        ps.execute();
         return resultSetHandler.handleResultSets(ps);
     }
 }
