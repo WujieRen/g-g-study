@@ -17,9 +17,9 @@ public class User {
     // 头像
     private String userHead;
     // 创建时间
-    private java.util.Date createTime;
+    private Date createTime;
     // 更新时间
-    private java.util.Date updateTime;
+    private Date updateTime;
 
     public User() {
     }
@@ -31,6 +31,12 @@ public class User {
     public User(Long id, String userId) {
         this.id = id;
         this.userId = userId;
+    }
+
+    public User(Long id, String userId, String userName) {
+        this.id = id;
+        this.userId = userId;
+        this.userName = userName;
     }
 
     public Long getId() {
@@ -65,15 +71,15 @@ public class User {
         this.userHead = userHead;
     }
 
-    public java.util.Date getCreateTime() {
+    public Date getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(java.util.Date createTime) {
+    public void setCreateTime(Date createTime) {
         this.createTime = createTime;
     }
 
-    public java.util.Date getUpdateTime() {
+    public Date getUpdateTime() {
         return updateTime;
     }
 
