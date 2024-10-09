@@ -1,8 +1,10 @@
 package cn.rwj.study.mybatis.builder;
 
 import cn.rwj.study.mybatis.mappig.*;
+import cn.rwj.study.mybatis.reflection.MetaClass;
 import cn.rwj.study.mybatis.scripting.LanguageDriver;
 import cn.rwj.study.mybatis.session.Configuration;
+import cn.rwj.study.mybatis.type.TypeHandler;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +23,38 @@ public class MapperBuilderAssistant extends BaseBuilder {
     public MapperBuilderAssistant(Configuration configuration, String resource) {
         super(configuration);
         this.resource = resource;
+    }
+
+    // step-13 新增方法
+    public ResultMapping buildResultMapping(
+            Class<?> resultType,
+            String property,
+            String column,
+            List<ResultFlag> flags) {
+
+        Class<?> javaTypeClass = resolveResultJavaType(resultType, property, null);
+        TypeHandler<?> typeHandlerInstance = resolveTypeHandler(javaTypeClass, null);
+
+        ResultMapping.Builder builder = new ResultMapping.Builder(configuration, property, column, javaTypeClass);
+        builder.typeHandler(typeHandlerInstance);
+        builder.flags(flags);
+
+        return builder.build();
+
+    }
+
+    private Class<?> resolveResultJavaType(Class<?> resultType, String property, Class<?> javaType) {
+        if (javaType == null && property != null) {
+            try {
+                MetaClass metaResultType = MetaClass.forClass(resultType);
+                javaType = metaResultType.getSetterType(property);
+            } catch (Exception ignore) {
+            }
+        }
+        if (javaType == null) {
+            javaType = Object.class;
+        }
+        return javaType;
     }
 
     public String getCurrentNamespace() {
@@ -107,7 +141,11 @@ public class MapperBuilderAssistant extends BaseBuilder {
         statementBuilder.resultMaps(resultMaps);
     }
 
+    // step-13 新增方法
     public ResultMap addResultMap(String id, Class<?> type, List<ResultMapping> resultMappings) {
+        // 补全ID全路径，如：cn.bugstack.mybatis.test.dao.IActivityDao + activityMap
+        id = applyCurrentNamespace(id, false);
+
         ResultMap.Builder inlineResultMapBuilder = new ResultMap.Builder(
                 configuration,
                 id,

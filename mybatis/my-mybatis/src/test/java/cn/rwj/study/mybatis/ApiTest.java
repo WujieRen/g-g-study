@@ -2,9 +2,11 @@ package cn.rwj.study.mybatis;
 
 import cn.hutool.json.JSONUtil;
 import cn.rwj.study.mybatis.builder.xml.XMLConfigBuilder;
+import cn.rwj.study.mybatis.dao.IActivityDao;
 import cn.rwj.study.mybatis.dao.IUserDao;
 import cn.rwj.study.mybatis.datasource.pooled.PooledDataSource;
 import cn.rwj.study.mybatis.io.Resources;
+import cn.rwj.study.mybatis.po.Activity;
 import cn.rwj.study.mybatis.po.User;
 import cn.rwj.study.mybatis.session.Configuration;
 import cn.rwj.study.mybatis.session.SqlSession;
@@ -85,6 +87,15 @@ public class ApiTest {
         // 1. 从SqlSessionFactory中获取SqlSession
         SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader("mybatis-config-datasource.xml"));
         sqlSession = sqlSessionFactory.openSession();
+    }
+
+    @Test
+    public void test_queryActivityById(){
+        // 1. 获取映射器对象
+        IActivityDao dao = sqlSession.getMapper(IActivityDao.class);
+        // 2. 测试验证
+        Activity res = dao.queryActivityById(100001L);
+        log.info("测试结果：{}", JSON.toJSONString(res));
     }
 
     @Test

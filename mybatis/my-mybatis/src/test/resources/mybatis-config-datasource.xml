@@ -21,6 +21,8 @@
         <!-- XML 配置 -->
         <mapper resource="mapper/UserMapper.xml"/>
 
+        <mapper resource="mapper/ActivityMapper.xml"/>
+
         <!--注解配置-->
         <mapper class="cn.rwj.study.mybatis.dao.IUserDaoAno"/>
     </mappers>
