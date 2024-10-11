@@ -8,7 +8,9 @@ import cn.rwj.study.mybatis.po.Activity;
  */
 public interface IActivityDao {
 
-    Activity queryActivityById(Long activityId);
+//    Activity queryActivityById(Long activityId);
+
+    Activity queryActivityById(Activity activity);
 
     Integer insert(Activity activity);
 

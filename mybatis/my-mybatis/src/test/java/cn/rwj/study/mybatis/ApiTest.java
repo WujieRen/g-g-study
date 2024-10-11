@@ -22,6 +22,9 @@ import java.util.List;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
+import ognl.Ognl;
+import ognl.OgnlContext;
+import ognl.OgnlException;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -89,13 +92,46 @@ public class ApiTest {
         sqlSession = sqlSessionFactory.openSession();
     }
 
+
+    @Test
+    public void test_queryActivityById() throws IOException {
+        // 1. 从SqlSessionFactory中获取SqlSession
+        SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(Resources.getResourceAsReader("mybatis-config-datasource.xml"));
+        SqlSession sqlSession = sqlSessionFactory.openSession();
+        // 2. 获取映射器对象
+        IActivityDao dao = sqlSession.getMapper(IActivityDao.class);
+        // 3. 测试验证
+        Activity req = new Activity();
+        req.setActivityId(100001L);
+        Activity res = dao.queryActivityById(req);
+        log.info("测试结果：{}", JSON.toJSONString(res));
+    }
+
+    @Test
+    public void test_ognl() throws OgnlException {
+        Activity req = new Activity();
+        req.setActivityId(1L);
+        req.setActivityName("测试活动");
+        req.setActivityDesc("小傅哥的测试内容");
+
+        OgnlContext context = new OgnlContext();
+        context.setRoot(req);
+        Object root = context.getRoot();
+
+        Object activityName = Ognl.getValue("activityName", context, root);
+        Object activityDesc = Ognl.getValue("activityDesc", context, root);
+        Object value = Ognl.getValue("activityDesc.length()", context, root);
+
+        System.out.println(activityName + "\t" + activityDesc + " length：" + value);
+    }
+
     @Test
     public void test_insert() {
         // 1. 获取映射器对象
         IActivityDao dao = sqlSession.getMapper(IActivityDao.class);
 
         Activity activity = new Activity();
-        activity.setActivityId(10004L);
+        activity.setActivityId(10005L);
         activity.setActivityName("测试活动");
         activity.setActivityDesc("测试数据插入");
         activity.setCreator("xiaofuge");
@@ -107,14 +143,14 @@ public class ApiTest {
         log.info("测试结果：count：{} idx：{}", res, JSON.toJSONString(activity.getId()));
     }
 
-    @Test
+   /* @Test
     public void test_queryActivityById(){
         // 1. 获取映射器对象
         IActivityDao dao = sqlSession.getMapper(IActivityDao.class);
         // 2. 测试验证
         Activity res = dao.queryActivityById(100001L);
         log.info("测试结果：{}", JSON.toJSONString(res));
-    }
+    }*/
 
     @Test
     public void test_insertUserInfo() {
