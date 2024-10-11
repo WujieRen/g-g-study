@@ -13,6 +13,7 @@ import java.util.Map;
 public enum JdbcType {
 
     INTEGER(Types.INTEGER),
+    BIGINT(Types.BIGINT),
     FLOAT(Types.FLOAT),
     DOUBLE(Types.DOUBLE),
     DECIMAL(Types.DECIMAL),
@@ -21,7 +22,7 @@ public enum JdbcType {
     TIMESTAMP(Types.TIMESTAMP);
 
     public final int TYPE_CODE;
-    private static Map<Integer, JdbcType> codeLookup = new HashMap<>();
+    private static Map<Integer,JdbcType> codeLookup = new HashMap<>();
 
     // 就将数字对应的枚举型放入 HashMap
     static {
@@ -34,7 +35,7 @@ public enum JdbcType {
         this.TYPE_CODE = code;
     }
 
-    public static JdbcType forCode(int code) {
+    public static JdbcType forCode(int code)  {
         return codeLookup.get(code);
     }
 

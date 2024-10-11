@@ -1,6 +1,7 @@
 package cn.rwj.study.mybatis.executor.statement;
 
 import cn.rwj.study.mybatis.executor.Executor;
+import cn.rwj.study.mybatis.executor.keygen.KeyGenerator;
 import cn.rwj.study.mybatis.mappig.BoundSql;
 import cn.rwj.study.mybatis.mappig.MappedStatement;
 import cn.rwj.study.mybatis.session.ResultHandler;
@@ -42,13 +43,17 @@ public class PreparedStatementHandler extends BaseStatementHandler {
     public int update(Statement statement) throws SQLException {
         PreparedStatement ps = (PreparedStatement) statement;
         ps.execute();
-        return ps.getUpdateCount();
+        int rows = ps.getUpdateCount();
+        Object parameterObject = boundSql.getParameterObject();
+        KeyGenerator keyGenerator = mappedStatement.getKeyGenerator();
+        keyGenerator.processAfter(executor, mappedStatement, ps, parameterObject);
+        return rows;
     }
 
     @Override
     public <E> List<E> query(Statement statement, ResultHandler resultHandler) throws SQLException {
         PreparedStatement ps = (PreparedStatement) statement;
         ps.execute();
-        return resultSetHandler.handleResultSets(ps);
+        return resultSetHandler.<E> handleResultSets(ps);
     }
 }
